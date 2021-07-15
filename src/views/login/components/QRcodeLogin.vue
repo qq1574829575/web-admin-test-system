@@ -61,7 +61,7 @@ export default {
       request({
         url: '/login/apply_code.php',
         method: 'post',
-        baseURL: 'https://www.xyxxcygcxx.guolianrobot.com',
+        baseURL: 'https://xyxxcygcxx.guolianrobot.com',
         data: {
           param: rsaUtil.encryption_xxcy()
         }
@@ -75,7 +75,7 @@ export default {
       request({
         url: '/login/query_code.php',
         method: 'post',
-        baseURL: 'https://www.xyxxcygcxx.guolianrobot.com',
+        baseURL: 'https://xyxxcygcxx.guolianrobot.com',
         data: {
           param: rsaUtil.encryption_xxcy({ Keyaccess: this.QRCode })
         }

@@ -13,7 +13,7 @@ export function GetSmsCode(data) {
     url: '/login/verification_login_Sms_send.php',
     method: 'post',
     data: 'param=' + rsaUtil.encryption_xxcy(data),
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -28,7 +28,7 @@ export function SmsCodeLogin(data) {
     url: '/login/verification_login_Sms_check.php',
     method: 'post',
     data: 'param=' + rsaUtil.encryption_xxcy(data),
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -43,7 +43,7 @@ export function GetModifyPassSmsCode(data) {
     url: '/login/modify_password_Sms_send.php',
     method: 'post',
     data: 'param=' + rsaUtil.encryption_xxcy(data),
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -58,7 +58,7 @@ export function CheckModifyPassSmsCode(data) {
     url: '/login/modify_password_Sms_check.php',
     method: 'post',
     data: 'param=' + rsaUtil.encryption_xxcy(data),
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -73,7 +73,7 @@ export function GetModifyPhoneSmsCode(data) {
     url: '/login/replace_phone_Sms_send.php',
     method: 'post',
     data: 'param=' + rsaUtil.encryption_xxcy(data),
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -88,6 +88,6 @@ export function CheckModifyPhoneSmsCode(data) {
     url: '/login/replace_phone_Sms_check.php',
     method: 'post',
     data: 'param=' + rsaUtil.encryption_xxcy(data),
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }

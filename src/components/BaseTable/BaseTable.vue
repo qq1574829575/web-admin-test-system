@@ -173,7 +173,7 @@ export default {
         url: this.requestConfig.url,
         method: 'post',
         data: {
-          param: rsaUtil.encryption_school(this.requestConfig.data),
+          param: rsaUtil.encryption_school_long(this.requestConfig.data),
           ...this.requestConfig.notRsaData
         },
         baseURL: this.requestConfig.baseUrl || process.env.VUE_APP_BASE_API

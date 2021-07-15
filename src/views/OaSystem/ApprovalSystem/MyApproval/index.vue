@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <router-view />
     <el-card>
       <el-button type="primary" size="mini" @click="createApplyDialogVisible = true">发起申请</el-button>
       <el-table :data="tableData" size="mini" style="width: 100%;margin-top: 10px;">
@@ -41,7 +42,7 @@
         </el-table-column>
         <el-table-column align="center" width="260px" label="操作">
           <template slot-scope="scope">
-            <el-button type="text" size="mini" @click="handlePreviewGongwen(scope)">查看进度</el-button>
+            <el-button type="text" size="mini" @click="applyProcessDialogVisible = true">查看进度</el-button>
             <el-button v-if="scope.row.status !== 2 && scope.row.status !== 4" type="text" size="mini" @click="handlePreviewGongwen(scope)">撤销申请</el-button>
             <el-button v-if="scope.row.status === 3" type="text" size="mini" @click="handlePreviewGongwen(scope)">重新发起申请</el-button>
           </template>
@@ -49,14 +50,16 @@
       </el-table>
     </el-card>
     <create-apply-dialog :visible.sync="createApplyDialogVisible" @onCreateApply="onCreateApply" />
+    <apply-process-dialog :visible.sync="applyProcessDialogVisible" />
   </div>
 </template>
 
 <script>
 import CreateApplyDialog from '@/views/OaSystem/ApprovalSystem/MyApproval/components/CreateApplyDialog'
+import ApplyProcessDialog from '@/views/OaSystem/ApprovalSystem/MyApproval/components/ApplyProcessDialog'
 export default {
   name: 'Index',
-  components: { CreateApplyDialog },
+  components: { ApplyProcessDialog, CreateApplyDialog },
   data() {
     return {
       tableData: [{
@@ -89,7 +92,8 @@ export default {
         status: 4 // 1待审核 2已通过 3未通过 4已撤销
       }
       ],
-      createApplyDialogVisible: false
+      createApplyDialogVisible: false,
+      applyProcessDialogVisible: false
     }
   },
   mounted() {

@@ -51,7 +51,7 @@ export default {
             data: {
               param: rsaUtil.encryption_xxcy({ Phone: this.loginForm.username, SmsCode: this.loginForm.code })
             },
-            baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+            baseURL: 'https://xyxxcygcxx.guolianrobot.com'
           }).then(res => {
             this.loading = false
             console.log(res)
@@ -74,7 +74,7 @@ export default {
           data: {
             param: rsaUtil.encryption_xxcy({ Phone: this.loginForm.username })
           },
-          baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+          baseURL: 'https://xyxxcygcxx.guolianrobot.com'
         }).then(res => {
           if (res.code === 1) {
             this.$notify({

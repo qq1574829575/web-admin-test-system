@@ -16,8 +16,8 @@ export default {
       Onlyid: uuidUtil.uuid(22, 10),
       Rootcardid: store.getters.userinfo.Rootcardid,
       Rootname: store.getters.userinfo.Rootname,
-      token: store.getters.userinfo.token,
-      Studid: store.getters.userinfo.studentID,
+      token: store.getters.userinfo.Token,
+      studentID: store.getters.userinfo.studentID,
       ...object
     }
     console.log(object)
@@ -26,14 +26,40 @@ export default {
     const await1 = JSON.stringify(object)
     const ciphertext = jse.encrypt(await1) // 将文本加密
     return encodeURIComponent(ciphertext)
+  },
+  encryption_xxcy_long(encryptData) {
+    // 中专统一门户公钥
+    const publicKey_xxcy = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArEvT+FgEn7iVHh8xLTvhRdoX
+    bGkkUrLFHedUa8xjZP7Mx91jhMWL180FZ+nKu0ZxPTPLcbcMfrXODso3M8Mbno58mq+xkdBnO/D/+KMdSby8dGS
+    T7+RbKQvsFZMBYyqRf5ZjGJPubb0EL+eyqwRJKVC7mqIbS9+J7Aa9DYl04e6muHeKnwc61nqUSh24+G4CasHEmL
+    p20iY3XEqWbe1dJHgd24y1guiBqgxFZCtzCeEED/k2VUZsfKnIjz1iJ/lKkr/IKTt1Bcvt13YP3Y6xhW8HmhoHP
+    RHBYdPTqOJjL5vr0yWm/brdkWOHyOdT41j2WFq+T3eJSAXu/PgCJEEbUQIDAQAB`
+    encryptData = {
+      Codetime: getCurrentTime(),
+      Onlyid: uuidUtil.uuid(22, 10),
+      Rootcardid: store.getters.userinfo.Rootcardid,
+      Rootname: store.getters.userinfo.Rootname,
+      token: store.getters.userinfo.Token,
+      studentID: store.getters.userinfo.studentID,
+      ...encryptData
+    }
+    console.log(encryptData)
+    const jse = new JsEncrypt()
+    jse.setPublicKey(publicKey_xxcy)
+    const encryptData_json_str = JSON.stringify(encryptData)
+    const encryptedData = jse.encryptLong(encryptData_json_str) // 将文本加密
+    return encodeURIComponent(encryptedData)
   },
   encryption_school(object) {
     // 学校统一门户公钥
     const publicKey = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApZzK5VGA68wQcymv9/RTB8gs0iLuHS2L4hSo22pIbZy5Dc4npkEGmx1SAdMODA6JrWyMJSEJZ9lOKw4JetULzjDSjD67Q9lsGFOilZRSkDNF0m4TDFs9t21Ii4kVX9uNnDlDcuZYsUXOg3K3o+TgRB7tmn1ZX+0kqIWfD7PuqOWp1WfvCKE28gg1oaBhz43nV8FJtxq8u6JqyKXoJm/q7QQ5bpB1D1ZJsKrxshtAICk3tHTC7yyIp2TSAK7mNN0sgt2U+6LCiVMk79Uswa0INL/zW9Pg/rNvzlONOlNJlMKtnxDlwhKFoawWlsRalAtHtDaCp+fv8hpcPVQLjMpzNQIDAQAB`
     object = {
+      Codetime: getCurrentTime(),
       Onlyid: uuidUtil.uuid(22, 10),
       Rootcardid: store.getters.userinfo.Rootcardid,
       Rootname: store.getters.userinfo.Rootname,
+      token: store.getters.userinfo.Token,
+      studentID: store.getters.userinfo.studentID,
       ...object
     }
     console.log(object)
@@ -43,30 +69,16 @@ export default {
     const ciphertext = jse.encrypt(await1) // 将文本加密
     return encodeURIComponent(ciphertext)
   },
-  encryption_pdf(object) {
-    // pdf服务器公钥
-    const publicKey = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxemk3U53wOLDKQ2W7ZgwzvduYlRCcw3ylR+Vvyu4vGUaAfza3mBhtKl0insLwLDPqoamnASMVvvX2t+sPKw05qOVMpYcN/yxruFOUCW6l6PPqmh9eDNDRVh+ykaHOXAg74+Va8FbmOuhO30m7NaLxLjhFbfIzbcEG6g3kfySr6YKk1NiEFK7lb8rO3QrqgIake/zPP+5CkRSqrQNn6eQIgXYTlRoqqchYH4fSmENQxwQ2AbCEHX4+U5H9VKVZzjOBUdXhRSuJ/HX3NOCLXUfuZACkZL8fQ85up1R5XNPPjCX1ZBX3c/ljnBR7LAwPWQ2YZkzjtAb2OgmvGyBPxV5AwIDAQAB`
-    console.log(publicKey)
-    object = {
-      Onlyid: uuidUtil.uuid(22, 10),
-      Rootcardid: store.getters.userinfo.Rootcardid,
-      Rootname: store.getters.userinfo.Rootname,
-      ...object
-    }
-    console.log(object)
-    const jse = new JsEncrypt()
-    jse.setPublicKey(publicKey) // 加入rsa public key
-    const await1 = JSON.stringify(object)
-    const ciphertext = jse.encrypt(await1) // 将文本加密
-    return encodeURIComponent(ciphertext)
-  },
-  encryption_long(encryptData) {
+  encryption_school_long(encryptData) {
     // 学校统一门户公钥
     const publicKey = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApZzK5VGA68wQcymv9/RTB8gs0iLuHS2L4hSo22pIbZy5Dc4npkEGmx1SAdMODA6JrWyMJSEJZ9lOKw4JetULzjDSjD67Q9lsGFOilZRSkDNF0m4TDFs9t21Ii4kVX9uNnDlDcuZYsUXOg3K3o+TgRB7tmn1ZX+0kqIWfD7PuqOWp1WfvCKE28gg1oaBhz43nV8FJtxq8u6JqyKXoJm/q7QQ5bpB1D1ZJsKrxshtAICk3tHTC7yyIp2TSAK7mNN0sgt2U+6LCiVMk79Uswa0INL/zW9Pg/rNvzlONOlNJlMKtnxDlwhKFoawWlsRalAtHtDaCp+fv8hpcPVQLjMpzNQIDAQAB`
     encryptData = {
+      Codetime: getCurrentTime(),
       Onlyid: uuidUtil.uuid(22, 10),
       Rootcardid: store.getters.userinfo.Rootcardid,
       Rootname: store.getters.userinfo.Rootname,
+      token: store.getters.userinfo.Token,
+      studentID: store.getters.userinfo.studentID,
       ...encryptData
     }
     console.log(encryptData)
@@ -75,6 +87,22 @@ export default {
     const encryptData_json_str = JSON.stringify(encryptData)
     const encryptedData = jse.encryptLong(encryptData_json_str) // 将文本加密
     return encodeURIComponent(encryptedData)
+  },
+  encryption_pdf(object) {
+    // pdf服务器公钥
+    const publicKey = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxemk3U53wOLDKQ2W7ZgwzvduYlRCcw3ylR+Vvyu4vGUaAfza3mBhtKl0insLwLDPqoamnASMVvvX2t+sPKw05qOVMpYcN/yxruFOUCW6l6PPqmh9eDNDRVh+ykaHOXAg74+Va8FbmOuhO30m7NaLxLjhFbfIzbcEG6g3kfySr6YKk1NiEFK7lb8rO3QrqgIake/zPP+5CkRSqrQNn6eQIgXYTlRoqqchYH4fSmENQxwQ2AbCEHX4+U5H9VKVZzjOBUdXhRSuJ/HX3NOCLXUfuZACkZL8fQ85up1R5XNPPjCX1ZBX3c/ljnBR7LAwPWQ2YZkzjtAb2OgmvGyBPxV5AwIDAQAB`
+    object = {
+      Onlyid: uuidUtil.uuid(22, 10),
+      Rootcardid: store.getters.userinfo.Rootcardid,
+      Rootname: store.getters.userinfo.Rootname,
+      ...object
+    }
+    console.log(object)
+    const jse = new JsEncrypt()
+    jse.setPublicKey(publicKey) // 加入rsa public key
+    const await1 = JSON.stringify(object)
+    const ciphertext = jse.encrypt(await1) // 将文本加密
+    return encodeURIComponent(ciphertext)
   }
 }
 

@@ -7,11 +7,13 @@
       <el-tree
         ref="tree"
         default-expand-all
+        draggable
         :check-strictly="checkStrictly"
         :data="routesData"
         :props="defaultProps"
         :expand-on-click-node="false"
         node-key="path"
+        @node-drop="handleDrop"
       >
         <span slot-scope="{ node, data }" class="custom-tree-node">
           <span>{{ node.data.meta.title }}</span>
@@ -79,6 +81,9 @@ export default {
     this.getRoutes()
   },
   methods: {
+    handleDrop(draggingNode, dropNode, dropType, ev) {
+      this.updateRoutes()
+    },
     addChildRoute(data) {
       this.addChildRouteDialogVisible = true
       this.addChildRouteData = data

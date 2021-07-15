@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <router-view />
     <div style="display: flex">
       <el-tag>搜索：</el-tag>
       <el-input v-model="searchContent" placeholder="请输入内容" size="mini" style="width: 30%;" clearable @clear="buildParams">
@@ -40,7 +41,7 @@
 
 <script>
 import BaseTable from '@/components/BaseTable/BaseTable'
-import PdfPreview from '@/views/document/management/components/PdfPreviewDialog'
+import PdfPreview from '../components/PdfPreviewDialog'
 export default {
   name: 'Index',
   components: { BaseTable, PdfPreview },

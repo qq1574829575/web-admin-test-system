@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 import qs from 'qs'
 import store from '@/store'
-import router from '@/router'
+// import router from '@/router'
 
 // create an axios instance
 const service = axios.create({
@@ -38,7 +38,7 @@ service.interceptors.response.use(
     })
     if (res.code === '12342') {
       store.dispatch('user/logout').then(r => {
-        router.push(`/login?redirect=${this.$route.fullPath}`)
+        location.reload()
       })
     }
     return res

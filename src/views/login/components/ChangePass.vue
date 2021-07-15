@@ -105,7 +105,7 @@ export default {
             Password: this.form.newPass
           })
         },
-        baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+        baseURL: 'https://xyxxcygcxx.guolianrobot.com'
       }).then(res => {
         this.loading = false
         if (res.code === 1) {
@@ -136,7 +136,7 @@ export default {
               Phone: this.form.phone
             })
           },
-          baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+          baseURL: 'https://xyxxcygcxx.guolianrobot.com'
         }).then(res => {
           if (res.code === 1) {
             this.$notify({

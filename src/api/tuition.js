@@ -9,7 +9,7 @@ export function getMajorList(data) {
     data: {
       param: rsaUtil.encryption_xxcy()
     },
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -20,7 +20,7 @@ export function addMealList(data) {
     data: {
       param: rsaUtil.encryption_xxcy(data)
     },
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -31,7 +31,7 @@ export function deleteMealList(data) {
     data: {
       param: rsaUtil.encryption_xxcy(data)
     },
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -42,7 +42,7 @@ export function getMealList() {
     data: {
       param: rsaUtil.encryption_xxcy()
     },
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -51,7 +51,7 @@ export function editPayType(data) {
     url: '/xxcyxuefei/newAdmin/EditPayType.php',
     method: 'post',
     data: 'param=' + rsaUtil.encryption_xxcy(data),
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -62,7 +62,7 @@ export function deletePayType(data) {
     data: {
       param: rsaUtil.encryption_xxcy(data)
     },
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }
 
@@ -73,6 +73,6 @@ export function addPayType(data) {
     data: {
       param: rsaUtil.encryption_xxcy(data)
     },
-    baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+    baseURL: 'https://xyxxcygcxx.guolianrobot.com'
   })
 }

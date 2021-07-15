@@ -465,7 +465,7 @@ export default {
         method: 'post',
         baseURL: 'http://www.unifiedplatform.guolianrobot.com',
         data: {
-          param: rsaUtil.encryption_school({
+          param: rsaUtil.encryption_school_long({
             page: this.page,
             rows: this.rows,
             wageDate: this.selectedDate,

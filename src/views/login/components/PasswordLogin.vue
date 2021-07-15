@@ -51,7 +51,7 @@ export default {
             data: {
               param: rsaUtil.encryption_xxcy({ Logininfo: this.loginForm.username, Password: this.loginForm.password })
             },
-            baseURL: 'https://www.xyxxcygcxx.guolianrobot.com'
+            baseURL: 'https://xyxxcygcxx.guolianrobot.com'
           }).then(res => {
             this.loading = false
             if (res.code === 1) {

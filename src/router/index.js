@@ -5,7 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
-
+// import nestedRouter from './modules/nested'
 /**
  * constantRoutes
  * a base page that does not have permission requirements
@@ -51,6 +51,7 @@ export const constantRoutes = [
       }
     ]
   }
+  // nestedRouter
   // {
   //   path: '/Test',
   //   component: Layout,
@@ -78,70 +79,6 @@ export const constantRoutes = [
   //       component: () => import('@/views/test/CwUploadWage'),
   //       name: 'CwUploadWage',
   //       meta: { title: '上传财务明细', icon: 'money', noCache: true }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/profile',
-  //   component: Layout,
-  //   redirect: '/profile/index',
-  //   hidden: false,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/profile/index'),
-  //       name: 'Profile',
-  //       meta: { title: '用户中心', icon: 'user', noCache: true }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/gongwen',
-  //   component: Layout,
-  //   redirect: 'noRedirect', // 在面包屑中不可点击
-  //   alwaysShow: true,
-  //   hidden: false,
-  //   meta: {
-  //     title: '公文系统',
-  //     icon: 'lock'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'newGongwen',
-  //       component: () => import('@/views/gongwen/newGongwen/index'),
-  //       name: 'newGongwen',
-  //       meta: { title: '发布公文', icon: 'user', noCache: true }
-  //     },
-  //     {
-  //       path: 'daibanGongwen',
-  //       component: () => import('@/views/gongwen/daibanGongwen/index'),
-  //       name: 'daibanGongwen',
-  //       meta: { title: '待办公文', icon: 'user', noCache: true }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/document',
-  //   component: Layout,
-  //   redirect: 'noRedirect', // 在面包屑中不可点击
-  //   alwaysShow: true,
-  //   hidden: false,
-  //   meta: {
-  //     title: '公文管理系统',
-  //     icon: 'lock'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'management',
-  //       component: () => import('@/views/document/management'),
-  //       name: 'management',
-  //       meta: { title: '公文管理', icon: 'lock', noCache: true }
-  //     },
-  //     {
-  //       path: 'consult',
-  //       component: () => import('@/views/document/consult'),
-  //       name: 'consult',
-  //       meta: { title: '公文查阅', icon: 'lock', noCache: true }
   //     }
   //   ]
   // }

@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <router-view />
     <div style="display: flex">
       <el-tag>搜索：</el-tag>
       <el-input v-model="searchContent" placeholder="请输入内容" size="mini" style="width: 30%;" clearable @clear="buildParams">
@@ -43,11 +44,11 @@
 </template>
 
 <script>
-import NewDocumentDialog from '@/views/document/management/components/NewDocumentDialog'
+import NewDocumentDialog from '../components/NewDocumentDialog'
 import BaseTable from '@/components/BaseTable/BaseTable'
 import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
-import PdfPreview from '@/views/document/management/components/PdfPreviewDialog'
+import PdfPreview from '../components/PdfPreviewDialog'
 export default {
   name: 'Index',
   components: { PdfPreview, NewDocumentDialog, BaseTable },
@@ -88,7 +89,7 @@ export default {
         method: 'post',
         baseURL: 'http://www.unifiedplatform.guolianrobot.com',
         data: {
-          param: rsaUtil.encryption_school()
+          param: rsaUtil.encryption_school_long()
         }
       }).then(res => {
         this.deptList = res.rows
@@ -131,7 +132,7 @@ export default {
           method: 'post',
           baseURL: 'http://www.unifiedplatform.guolianrobot.com',
           data: {
-            param: rsaUtil.encryption_school({
+            param: rsaUtil.encryption_school_long({
               noticeId: scope.row.noticeId
             })
           }
