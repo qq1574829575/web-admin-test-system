@@ -4,19 +4,19 @@
     :visible.sync="config.visible"
     :before-close="onClose"
     append-to-body
-    width="60%"
+    width="50%"
     modal-append-to-body
     @open="onOpen"
   >
-    <el-form ref="form" :rules="rules" :model="config.formData" label-width="120px" label-position="right" size="mini">
+    <el-form ref="form" :rules="rules" :model="formData" label-width="120px" label-position="right" size="mini">
       <el-form-item label="公文标题" prop="noticeTitle">
-        <el-input v-model="config.formData.noticeTitle" placeholder="公文标题" />
+        <el-input v-model="formData.noticeTitle" placeholder="公文标题" />
       </el-form-item>
       <el-form-item label="文号" prop="noticeNum">
-        <el-input v-model="config.formData.noticeNum" placeholder="公文文号" />
+        <el-input v-model="formData.noticeNum" placeholder="公文文号" />
       </el-form-item>
       <el-form-item label="公文类型" prop="noticeType">
-        <el-select v-model="config.formData.noticeType" placeholder="请选择公文类型">
+        <el-select v-model="formData.noticeType" placeholder="请选择公文类型">
           <el-option
             key="1"
             label="通知"
@@ -39,7 +39,7 @@
         <el-radio v-model="radio" label="2">选择部门：
           <el-select
             v-model="selectedDept"
-            style="width: 80%"
+            style="width: 65%"
             placeholder="请选择"
             collapse-tags
             multiple
@@ -55,6 +55,10 @@
           </el-select>
         </el-radio>
       </el-form-item>
+      <el-form-item label="是否可下载" prop="isDownload">
+        <el-radio v-model="formData.noticeFlag" label="1">可下载</el-radio>
+        <el-radio v-model="formData.noticeFlag" label="2">不可下载</el-radio>
+      </el-form-item>
       <el-form-item label="上传PDF文件" prop="noticeFileAddr">
         <el-upload
           ref="upload"
@@ -67,7 +71,7 @@
           accept=".pdf"
         >
           <el-button slot="trigger" type="primary" size="mini">选择PDF文件</el-button>
-          <div v-if="config.formData.noticeFileAddr !== ''">文件已上传</div>
+          <div v-if="formData.noticeFileAddr !== ''">文件已上传</div>
         </el-upload>
       </el-form-item>
       <el-form-item>
@@ -91,15 +95,7 @@ export default {
         return {
           visible: false,
           title: '新建公文',
-          type: 'add',
-          formData: {
-            noticeTitle: '',
-            noticeType: '',
-            noticeNum: '',
-            noticeFileAddr: '',
-            noticeRange: '',
-            teacherNo: ''
-          }
+          type: 'add'
         }
       }
     }
@@ -109,29 +105,39 @@ export default {
       radio: '1',
       selectedDept: [],
       options: [],
+      formData: {
+        noticeTitle: '',
+        noticeType: '通知',
+        noticeNum: '',
+        noticeFileAddr: '',
+        noticeRange: '99',
+        teacherNo: 'J00000',
+        noticeFlag: '1'
+      },
       rules: {
         noticeTitle: [{ required: true, trigger: 'blur', message: '请输入公文标题' }],
         noticeNum: [{ required: true, trigger: 'blur', message: '请输入公文文号' }],
         noticeType: [{ required: true, trigger: 'blur', message: '选择公文类型' }],
         noticeRange: [{ required: true, trigger: 'blur', message: '请选择通知范围' }],
-        noticeFileAddr: [{ required: true, trigger: 'blur', message: '请选择PDF文件' }]
+        noticeFileAddr: [{ required: true, trigger: 'blur', message: '请选择PDF文件' }],
+        noticeFlag: [{ required: true, trigger: 'blur', message: '请选择是否可下载' }]
       }
     }
   },
-  mounted() {
-    this.getDeptList()
-  },
   methods: {
     onOpen() {
-      if (this.config.formData.noticeRange === '99') {
+      this.getDeptList()
+      if (this.formData.noticeRange === '99') {
         this.radio = '1'
       } else {
-        this.selectedDept = JSON.parse(this.config.formData.noticeRange)
+        this.selectedDept = JSON.parse(this.formData.noticeRange)
         this.radio = '2'
+      }
+      if (this.config.formData) {
+        Object.assign(this.formData, this.config.formData)
       }
     },
     onClose() {
-      this.$parent.buildParams()
       this.selectedDept = []
       this.$refs['upload'].clearFiles()
       this.$emit('update:visible', false)
@@ -147,7 +153,7 @@ export default {
     },
     handleSuccess(res, file) {
       if (res.result === true) {
-        this.config.formData.noticeFileAddr = res.url
+        this.formData.noticeFileAddr = res.url
         this.$refs['upload'].clearFiles()
       } else {
         this.$message({
@@ -173,12 +179,12 @@ export default {
     },
     confirm() {
       if (this.radio === '1') {
-        this.config.formData.noticeRange = '99'
+        this.formData.noticeRange = '99'
       } else {
         if (this.selectedDept.length === 0) {
-          this.config.formData.noticeRange = ''
+          this.formData.noticeRange = ''
         } else {
-          this.config.formData.noticeRange = JSON.stringify(this.selectedDept)
+          this.formData.noticeRange = JSON.stringify(this.selectedDept)
         }
       }
       this.$refs.form.validate(valid => {
@@ -190,16 +196,15 @@ export default {
               baseURL: 'http://www.unifiedplatform.guolianrobot.com',
               data: {
                 param: rsaUtil.encryption_school(),
-                ...this.config.formData
+                ...this.formData
               }
             }).then(res => {
+              this.$message({
+                message: res.message,
+                type: 'success'
+              })
+              this.$parent.buildParams()
               this.onClose()
-              if (res.code === 1) {
-                this.$message({
-                  message: res.message,
-                  type: 'success'
-                })
-              }
             })
           } else {
             request({
@@ -208,11 +213,12 @@ export default {
               baseURL: 'http://www.unifiedplatform.guolianrobot.com',
               data: {
                 param: rsaUtil.encryption_school({
-                  noticeId: this.config.formData.noticeId
+                  noticeId: this.formData.noticeId
                 }),
-                ...this.config.formData
+                ...this.formData
               }
             }).then(res => {
+              this.$parent.buildParams()
               this.onClose()
               if (res.code === 1) {
                 this.$message({

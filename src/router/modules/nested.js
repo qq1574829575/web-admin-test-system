@@ -22,7 +22,7 @@ const nestedRouter = {
       children: [
         {
           path: 'MyApproval',
-          component: () => import('@/views/OaSystem/ApprovalSystem/MyApproval'),
+          component: () => import('@/views/OaSystem/OaApproval/MyApproval'),
           name: 'MyApproval',
           meta: { title: '我的申请' }
         }

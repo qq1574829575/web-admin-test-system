@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import qs from 'qs'
-import store from '@/store'
+// import store from '@/store'
 // import router from '@/router'
 
 // create an axios instance
@@ -36,12 +36,12 @@ service.interceptors.response.use(
       type: 'error',
       duration: 5 * 1000
     })
-    if (res.code === '12342') {
-      store.dispatch('user/logout').then(r => {
-        location.reload()
-      })
-    }
-    return res
+    // if (res.code === '12342') {
+    //   store.dispatch('user/logout').then(r => {
+    //     location.reload()
+    //   })
+    // }
+    return Promise.reject(new Error(res.message || res.msg || 'Error'))
   },
   error => {
     console.log('err' + error) // for debug

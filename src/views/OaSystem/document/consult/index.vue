@@ -21,16 +21,29 @@
       <template v-slot="columnConfig">
         <template v-for="item in columnConfig.columnConfig">
           <el-table-column
-            v-if="item.prop !== 'noticeId' && item.prop !== 'noticeRange' && item.prop !== 'noticeFileAddr'"
+            v-if="item.prop !== 'noticeId' && item.prop !== 'noticeRange' && item.prop !== 'noticeFileAddr' && item.prop !== 'noticeFlag'"
             :key="item.prop"
             :prop="item.prop"
             :label="item.label"
             show-overflow-tooltip
           />
+          <el-table-column
+            v-else-if="item.prop === 'noticeFlag'"
+            :key="item.prop"
+            :prop="item.prop"
+            :label="item.label"
+            show-overflow-tooltip
+          >
+            <template slot-scope="scope">
+              <el-tag v-if="scope.row.noticeFlag === '1'" type="success">是</el-tag>
+              <el-tag v-else type="info">否</el-tag>
+            </template>
+          </el-table-column>
         </template>
         <el-table-column label="操作" width="150px" fixed="right">
           <template slot-scope="scope">
             <el-button type="text" size="mini" @click="handlePreview(scope)">在线阅读</el-button>
+            <el-button v-if="scope.row.noticeFlag === '1'" type="text" size="mini" @click="download(scope)">下载文件</el-button>
           </template>
         </el-table-column>
       </template>
@@ -47,7 +60,6 @@ export default {
   components: { BaseTable, PdfPreview },
   data() {
     return {
-      tableData: [],
       requestConfig: {},
       columnWidth: [],
       searchContent: '',
@@ -80,6 +92,17 @@ export default {
         },
         baseUrl: 'http://www.unifiedplatform.guolianrobot.com'
       }
+    },
+    download(scope) {
+      const a = document.createElement('a')
+      fetch(scope.row.noticeFileAddr).then(res => res.blob()).then(blob => { // 将链接地址字符内容转变成blob地址
+        a.href = URL.createObjectURL(blob)
+        console.log(a.href)
+        a.download = scope.row.noticeTitle // 下载文件的名字
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+      })
     }
   }
 }

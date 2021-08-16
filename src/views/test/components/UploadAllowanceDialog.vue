@@ -84,8 +84,9 @@ export default {
       }
       const list = []
       for (const item of this.uploadData) {
-        const wageDate = item[1]
         const wageTeacherNo = item[0]
+        const wageDate = item[1]
+        const wageName = item[2]
         const llowanceArr = []
         item.splice(0, 3)
         for (let i = 0; i < item.length; i++) {
@@ -99,12 +100,14 @@ export default {
           }
         }
         const row = {
-          wageDate: wageDate,
           wageTeacherNo: wageTeacherNo,
+          wageDate: wageDate,
+          wageName: wageName,
           allowanceArr: llowanceArr
         }
         list.push(row)
       }
+      console.log(list)
       request({
         url: '/personnelsystem/PersonSystem/wage/CreateGroupAllowance.php',
         method: 'post',
@@ -177,7 +180,7 @@ export default {
       import('@/vendor/Export2Excel').then(excel => {
         const data = []
         for (const item of this.failData) {
-          const row = [item.wageTeacherNo, item.wageTeacherName, item.wageDate]
+          const row = [item.wageTeacherNo, item.wageDate, item.wageTeacherName]
           for (const tmp of item.allowanceArr) {
             row.push(tmp.allowanceName, tmp.allowanceMoney)
           }
@@ -189,7 +192,7 @@ export default {
           const tmp = ['津贴' + i, '']
           multiJtHeader.push(...tmp)
         }
-        const multiHeader = [['教职工号', '姓名', '年月', ...multiJtHeader, '上传失败原因']]
+        const multiHeader = [['教职工号', '年月', '姓名', ...multiJtHeader, '上传失败原因']]
         const jtHeader = []
         for (let i = 1; i <= 30; i++) {
           const tmp = ['名称', '金额']

@@ -23,6 +23,12 @@ Vue.use(Element, {
   size: Cookies.get('size') || 'medium' // set element-ui default size
 })
 
+import formCreate from '@form-create/element-ui'
+import FcDesigner from '@form-create/designer'
+
+Vue.use(formCreate)
+Vue.use(FcDesigner)
+
 // register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

@@ -58,7 +58,7 @@ export default {
       Onlyid: uuidUtil.uuid(22, 10),
       Rootcardid: store.getters.userinfo.Rootcardid,
       Rootname: store.getters.userinfo.Rootname,
-      token: store.getters.userinfo.Token,
+      Token: store.getters.userinfo.Token,
       studentID: store.getters.userinfo.studentID,
       ...object
     }
@@ -77,7 +77,7 @@ export default {
       Onlyid: uuidUtil.uuid(22, 10),
       Rootcardid: store.getters.userinfo.Rootcardid,
       Rootname: store.getters.userinfo.Rootname,
-      token: store.getters.userinfo.Token,
+      Token: store.getters.userinfo.Token,
       studentID: store.getters.userinfo.studentID,
       ...encryptData
     }
@@ -95,6 +95,31 @@ export default {
       Onlyid: uuidUtil.uuid(22, 10),
       Rootcardid: store.getters.userinfo.Rootcardid,
       Rootname: store.getters.userinfo.Rootname,
+      ...object
+    }
+    console.log(object)
+    const jse = new JsEncrypt()
+    jse.setPublicKey(publicKey) // 加入rsa public key
+    const await1 = JSON.stringify(object)
+    const ciphertext = jse.encrypt(await1) // 将文本加密
+    return encodeURIComponent(ciphertext)
+  },
+  encryption_oa_test(object) {
+    // oa系统本地测试公钥
+    const publicKey = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjMO5eDKsp42oR+D1ID81
+ZwYtrY7oshUJO4mF+qEIWqge5ZXvaFNhdR41lTRjCHLvOL/z2y/3XpfMJu1chche
+dfqIxHo6cpEVZK28UwbQf/CT+SYWfxQytXt7WnpMrZwngpn9SifYQVeU4foMqbJq
+Ds6xa9+ahCSYwyyH5GPNhyXinrYg1837CY4JEVJLganGER+KHOCqFkhTC7PWV+DN
+UCMFB3+6liSr2l9JTWSm8RQJqTwCf1n4wld7nOwDoXAaZVNVKMLoirx0PJzYuC3o
+1pG3pzIOo1D15jTaOwUIY+QNcutgD2MAB9dFP1j8ox4Xa1BRANbsXqkKYYilNXdN
+wwIDAQAB`
+    object = {
+      Codetime: getCurrentTime(),
+      Onlyid: uuidUtil.uuid(22, 10),
+      Rootcardid: store.getters.userinfo.Rootcardid,
+      Rootname: store.getters.userinfo.Rootname,
+      Token: store.getters.userinfo.Token,
+      studentID: store.getters.userinfo.studentID,
       ...object
     }
     console.log(object)
