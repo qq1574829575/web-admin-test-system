@@ -18,16 +18,20 @@ import './permission' // permission control
 import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
+import SchoolRequest from '@/utils/SchoolRequest'
+
+import tinymce from 'tinymce'
+import VueTinymce from '@packy-tang/vue-tinymce'
+
+Vue.prototype.$tinymce = tinymce // 将全局tinymce对象指向给Vue作用域下
+Vue.use(VueTinymce) // 安装vue的tinymce组件
+
+// 定义http全局变量
+Vue.prototype.$http = SchoolRequest
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium' // set element-ui default size
 })
-
-import formCreate from '@form-create/element-ui'
-import FcDesigner from '@form-create/designer'
-
-Vue.use(formCreate)
-Vue.use(FcDesigner)
 
 // register global utility filters
 Object.keys(filters).forEach(key => {

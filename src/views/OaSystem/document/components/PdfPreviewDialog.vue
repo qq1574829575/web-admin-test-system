@@ -12,11 +12,11 @@
     <template slot="title">
       <div class="avue-crud__dialog__header">
         <span class="el-dialog__title">
-          <span style="display:inline-block;background-color: #3478f5;width:3px;height:20px;margin-right:5px; float: left;margin-top:2px"></span>
+          <span style="display:inline-block;background-color: #3478f5;width:3px;height:20px;margin-right:5px; float: left;margin-top:2px" />
           {{ title }}
         </span>
         <div class="avue-crud__dialog__menu" @click="onFullScreenClick">
-          <i class="el-icon-full-screen"></i>
+          <i class="el-icon-full-screen" />
         </div>
       </div>
     </template>

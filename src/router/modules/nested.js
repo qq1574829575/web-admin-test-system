@@ -14,7 +14,7 @@ const nestedRouter = {
   children: [
     {
       path: 'ApprovalSystem',
-      component: () => import('@/views/OaSystem/ApprovalSystem/index'), // Parent router-view
+      component: () => import('@/views/OaSystem/OaApproval/ApprovalSystem/index'), // Parent router-view
       name: 'ApprovalSystem',
       alwaysShow: true,
       meta: { title: '审批系统' },

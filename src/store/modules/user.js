@@ -1,6 +1,7 @@
 import { resetRouter } from '@/router'
 
 const state = {
+  userInfo: {},
   userinfo: {},
   hasRoutes: false,
   adminUserinfo: {}
@@ -15,6 +16,7 @@ const mutations = {
   },
   SET_USERINFO: (state, userinfo) => {
     state.userinfo = userinfo
+    state.userInfo = userinfo
   }
 }
 

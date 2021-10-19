@@ -4,6 +4,25 @@ import { getCurrentTime } from '@/utils/time'
 import store from '@/store'
 
 export default {
+  encryption(object) {
+    // 学校统一门户公钥
+    const publicKey = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApZzK5VGA68wQcymv9/RTB8gs0iLuHS2L4hSo22pIbZy5Dc4npkEGmx1SAdMODA6JrWyMJSEJZ9lOKw4JetULzjDSjD67Q9lsGFOilZRSkDNF0m4TDFs9t21Ii4kVX9uNnDlDcuZYsUXOg3K3o+TgRB7tmn1ZX+0kqIWfD7PuqOWp1WfvCKE28gg1oaBhz43nV8FJtxq8u6JqyKXoJm/q7QQ5bpB1D1ZJsKrxshtAICk3tHTC7yyIp2TSAK7mNN0sgt2U+6LCiVMk79Uswa0INL/zW9Pg/rNvzlONOlNJlMKtnxDlwhKFoawWlsRalAtHtDaCp+fv8hpcPVQLjMpzNQIDAQAB`
+    object = {
+      Codetime: getCurrentTime(),
+      Onlyid: uuidUtil.uuid(22, 10),
+      Rootcardid: store.getters.userinfo.Rootcardid,
+      Rootname: store.getters.userinfo.Rootname,
+      Token: store.getters.userinfo.Token,
+      studentID: store.getters.userinfo.studentID,
+      ...object
+    }
+    console.log(object)
+    const jse = new JsEncrypt()
+    jse.setPublicKey(publicKey) // 加入rsa public key
+    const await1 = JSON.stringify(object)
+    const ciphertext = jse.encryptLong(await1) // 将文本加密
+    return encodeURIComponent(ciphertext)
+  },
   encryption_xxcy(object) {
     // 中专统一门户公钥
     const publicKey = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArEvT+FgEn7iVHh8xLTvhRdoX
@@ -44,6 +63,7 @@ export default {
       ...encryptData
     }
     console.log(encryptData)
+    console.log('佳新是大坏蛋')
     const jse = new JsEncrypt()
     jse.setPublicKey(publicKey_xxcy)
     const encryptData_json_str = JSON.stringify(encryptData)

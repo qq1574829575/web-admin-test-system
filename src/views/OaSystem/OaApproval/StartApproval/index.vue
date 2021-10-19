@@ -119,14 +119,14 @@
               >
                 <span style="float: left">{{ item.name }}</span>
                 <span style="float: right; color: #8492a6; font-size: 13px">
-                <el-button
-                  size="mini"
-                  icon="el-icon-down"
-                  type="primary"
-                  plain
-                  @click="download(item)"
-                >下载</el-button>
-              </span>
+                  <el-button
+                    size="mini"
+                    icon="el-icon-down"
+                    type="primary"
+                    plain
+                    @click="download(item)"
+                  >下载</el-button>
+                </span>
               </el-option>
             </el-select>
             <div slot="tip" class="el-upload__tip">支持上传jpg、png、gif、xls、xlsx、doc、docx、pdf格式的文件</div>

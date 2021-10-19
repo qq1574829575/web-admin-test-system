@@ -12,14 +12,14 @@
               default-expand-all
               :expand-on-click-node="false"
             >
-              <span slot-scope="{ node, data }" class="custom-tree-node">
-                <span>发给:{{ data.teacherName }}</span>
+              <span slot-scope="{ node, nodeData }" class="custom-tree-node">
+                <span>发给:{{ nodeData.teacherName }}</span>
                 <span>
-                  <el-tag v-if="data.isRead === '1'" size="mini" type="success">已查阅</el-tag>
+                  <el-tag v-if="nodeData.isRead === '1'" size="mini" type="success">已查阅</el-tag>
                   <el-tag v-else size="mini" type="danger">未查阅</el-tag>
-                  <el-tag v-if="data.isTransmit === '1'" style="margin-left: 2px" size="mini" type="success">已处理</el-tag>
+                  <el-tag v-if="nodeData.isTransmit === '1'" style="margin-left: 2px" size="mini" type="success">已处理</el-tag>
                   <el-tag v-else size="mini" style="margin-left: 2px" type="danger">未处理</el-tag>
-                  <el-tag style="margin-left: 2px" size="mini">处理内容：{{ data.remarkContent }}</el-tag>
+                  <el-tag style="margin-left: 2px" size="mini">处理内容：{{ nodeData.remarkContent }}</el-tag>
                 </span>
               </span></el-tree>
           </el-scrollbar>

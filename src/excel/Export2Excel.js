@@ -141,7 +141,7 @@ export function export_table_to_excel(id) {
 
   saveAs(new Blob([s2ab(wbout)], {
     type: "application/octet-stream"
-  }), "test.xlsx")
+  }), "FormDesign.xlsx")
 }
 
 function formatJson(jsonData) {
@@ -156,7 +156,7 @@ export function export_json_to_excel(th, jsonData, defaultTitle, merges) {
 
   var wb = new Workbook(),
     ws = sheet_from_array_of_arrays(data);
-    
+
   //关于单元格合并
   if (merges.length > 0) {
     if (!ws['!merges']) ws['!merges'] = [];

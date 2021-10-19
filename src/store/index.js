@@ -18,6 +18,13 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 }, {})
 
 const store = new Vuex.Store({
+  state: {
+    userInfo: {
+      Rootcardid: '36252919960225103X' // 友文
+      // Rootcardid: '362233197310165534' // 万院
+      // Rootcardid: '362427199509224717' // 郭
+    }
+  },
   modules,
   getters
 })
