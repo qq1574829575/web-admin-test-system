@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 export default {
   name: 'ChangePass',
@@ -96,16 +95,11 @@ export default {
       // 先校验验证码 暂时先不校验验证码
       // const res = await CheckModifyPassSmsCode()
       this.loading = true
-      request({
-        url: '/login/update_password.php',
-        method: 'post',
-        data: {
-          param: rsaUtil.encryption_xxcy({
-            Phone: this.form.phone,
-            Password: this.form.newPass
-          })
-        },
-        baseURL: 'https://xyxxcygcxx.guolianrobot.com'
+      this.$http.post('login/update_password.php', {
+        param: rsaUtil.encryption_xxcy({
+          Phone: this.form.phone,
+          Password: this.form.newPass
+        })
       }).then(res => {
         this.loading = false
         if (res.code === 1) {
@@ -128,15 +122,10 @@ export default {
       const TIME_COUNT = 60
       if (!this.timer) {
         this.loading = true
-        request({
-          url: '/login/modify_password_Sms_send.php',
-          method: 'post',
-          data: {
-            param: rsaUtil.encryption_xxcy({
-              Phone: this.form.phone
-            })
-          },
-          baseURL: 'https://xyxxcygcxx.guolianrobot.com'
+        this.$http.post('login/modify_password_Sms_send.php', {
+          param: rsaUtil.encryption_xxcy({
+            Phone: this.form.phone
+          })
         }).then(res => {
           if (res.code === 1) {
             this.$notify({

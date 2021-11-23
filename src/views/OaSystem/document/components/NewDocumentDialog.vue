@@ -83,7 +83,6 @@
 </template>
 
 <script>
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 
 export default {
@@ -163,13 +162,8 @@ export default {
       }
     },
     getDeptList() {
-      request({
-        url: '/jiangoaoffice/Office/office/GetDeptList.php',
-        method: 'post',
-        baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-        data: {
-          param: rsaUtil.encryption_school()
-        }
+      this.$http.post('jiangoaoffice/Office/office/GetDeptList.php', {
+        param: rsaUtil.encryption_school()
       }).then(res => {
         this.options = res.rows
       })
@@ -190,14 +184,9 @@ export default {
       this.$refs.form.validate(valid => {
         if (valid) {
           if (this.config.type === 'add') {
-            request({
-              url: '/jiangoaoffice/Office/office/CreateOfficeNotice.php',
-              method: 'post',
-              baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-              data: {
-                param: rsaUtil.encryption_school(),
-                ...this.formData
-              }
+            this.$http.post('jiangoaoffice/Office/office/CreateOfficeNotice.php', {
+              param: rsaUtil.encryption_school(),
+              ...this.formData
             }).then(res => {
               this.$message({
                 message: res.message,
@@ -207,16 +196,11 @@ export default {
               this.onClose()
             })
           } else {
-            request({
-              url: '/jiangoaoffice/Office/office/ModifyOfficeNotice.php',
-              method: 'post',
-              baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-              data: {
-                param: rsaUtil.encryption_school({
-                  noticeId: this.formData.noticeId
-                }),
-                ...this.formData
-              }
+            this.$http.post('jiangoaoffice/Office/office/ModifyOfficeNotice.php', {
+              param: rsaUtil.encryption_school({
+                noticeId: this.formData.noticeId
+              }),
+              ...this.formData
             }).then(res => {
               this.$parent.buildParams()
               this.onClose()

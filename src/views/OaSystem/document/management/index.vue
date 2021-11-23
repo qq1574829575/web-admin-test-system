@@ -56,7 +56,6 @@
 <script>
 import NewDocumentDialog from '../components/NewDocumentDialog'
 import BaseTable from '@/components/BaseTable/BaseTable'
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 import PdfPreview from '../components/PdfPreviewDialog'
 export default {
@@ -86,13 +85,8 @@ export default {
   },
   methods: {
     getDeptList() {
-      request({
-        url: '/jiangoaoffice/Office/office/GetDeptList.php',
-        method: 'post',
-        baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-        data: {
-          param: rsaUtil.encryption_school_long()
-        }
+      this.$http.post('jiangoaoffice/Office/office/GetDeptList.php', {
+        param: rsaUtil.encryption_school_long()
       }).then(res => {
         this.deptList = res.rows
       })
@@ -130,15 +124,10 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        request({
-          url: '/jiangoaoffice/Office/office/DeleteFileContent.php',
-          method: 'post',
-          baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-          data: {
-            param: rsaUtil.encryption_school_long({
-              noticeId: scope.row.noticeId
-            })
-          }
+        this.$http.post('jiangoaoffice/Office/office/DeleteFileContent.php', {
+          param: rsaUtil.encryption_school_long({
+            noticeId: scope.row.noticeId
+          })
         }).then(res => {
           if (res.code === 1) {
             this.buildParams()

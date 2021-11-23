@@ -58,8 +58,6 @@
 </template>
 
 <script>
-
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 
 export default {
@@ -88,16 +86,11 @@ export default {
   },
   methods: {
     getList() {
-      request({
-        url: '/personnelsystem/PersonSystem/wage/GetWageSubmitList.php',
-        method: 'post',
-        baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-        data: {
-          param: rsaUtil.encryption_school({
-            page: this.page,
-            rows: this.rows
-          })
-        }
+      this.$http.post('personnelsystem/PersonSystem/wage/GetWageSubmitList.php', {
+        param: rsaUtil.encryption_school({
+          page: this.page,
+          rows: this.rows
+        })
       }).then(res => {
         console.log(res)
         this.tableData = res.rows
@@ -122,16 +115,11 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        request({
-          url: '/personnelsystem/PersonSystem/wage/ModifyGroupTeacherWage.php',
-          method: 'post',
-          baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-          data: {
-            param: rsaUtil.encryption_school({
-              wageDate: data.row.wageDate,
-              status: 3
-            })
-          }
+        this.$http.post('personnelsystem/PersonSystem/wage/ModifyGroupTeacherWage.php', {
+          param: rsaUtil.encryption_school({
+            wageDate: data.row.wageDate,
+            status: 3
+          })
         }).then(res => {
           this.getList()
           this.$notify({
@@ -149,16 +137,11 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        request({
-          url: '/personnelsystem/PersonSystem/wage/ModifyGroupTeacherWage.php',
-          method: 'post',
-          baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-          data: {
-            param: rsaUtil.encryption_school({
-              wageDate: data.row.wageDate,
-              status: 4
-            })
-          }
+        this.$http.post('personnelsystem/PersonSystem/wage/ModifyGroupTeacherWage.php', {
+          param: rsaUtil.encryption_school({
+            wageDate: data.row.wageDate,
+            status: 4
+          })
         }).then(res => {
           this.getList()
           this.$notify({
@@ -176,16 +159,11 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        request({
-          url: '/personnelsystem/PersonSystem/wage/ModifyGroupAllowance.php',
-          method: 'post',
-          baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-          data: {
-            param: rsaUtil.encryption_school({
-              wageDate: data.row.wageDate,
-              status: 4
-            })
-          }
+        this.$http.post('personnelsystem/PersonSystem/wage/ModifyGroupAllowance.php', {
+          param: rsaUtil.encryption_school({
+            wageDate: data.row.wageDate,
+            status: 4
+          })
         }).then(res => {
           this.getList()
           this.$notify({

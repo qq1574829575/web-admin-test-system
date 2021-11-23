@@ -98,10 +98,7 @@
 </template>
 
 <script>
-// import AddFormItemDialog from '@/views/OaSystem/ApprovalSystem/ProcessCreate/components/AddFormItemDialog'
 import AddProcessNodeDialog from '@/views/OaSystem/OaApproval/ApprovalSystem/ProcessCreate/components/AddProcessNodeDialog'
-import request from '@/utils/request'
-import rsaUtil from '@/utils/rsaUtil'
 export default {
   name: 'Index',
   components: { AddProcessNodeDialog },
@@ -128,16 +125,10 @@ export default {
     confirm() {
       this.$refs.mainForm.validate(valid => {
         if (valid) {
-          request({
-            url: '/process/CreateProcess.php',
-            method: 'post',
-            baseURL: 'http://192.168.110.183:8003',
-            data: {
-              param: rsaUtil.encryption_oa_test(),
-              processName: this.mainForm.processName,
-              processFiles: JSON.stringify(this.mainForm.uploadedFileList),
-              processNodeList: JSON.stringify(this.mainForm.processNodeList)
-            }
+          this.$http.post('process/CreateProcess.php', {
+            processName: this.mainForm.processName,
+            processFiles: JSON.stringify(this.mainForm.uploadedFileList),
+            processNodeList: JSON.stringify(this.mainForm.processNodeList)
           }).then((res) => {
             this.$message({
               type: 'success',

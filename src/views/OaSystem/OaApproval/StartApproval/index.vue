@@ -151,8 +151,6 @@
 </template>
 
 <script>
-
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 
 export default {
@@ -208,16 +206,11 @@ export default {
     },
     getProcessList() {
       // 获取固定流程列表
-      request({
-        url: '/process/GetProcessList.php',
-        method: 'post',
-        baseURL: 'http://localhost:8003',
-        data: {
-          param: rsaUtil.encryption_oa_test({
-            page: 1,
-            rows: 100
-          })
-        }
+      this.$http.post('process/GetProcessList.php', {
+        param: rsaUtil.encryption_oa_test({
+          page: 1,
+          rows: 100
+        })
       }).then((res) => {
         this.processList = res.rows
       })
@@ -230,19 +223,14 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            request({
-              url: '/approval/CreateApproval.php',
-              method: 'post',
-              baseURL: 'http://localhost:8003',
-              data: {
-                param: rsaUtil.encryption_oa_test(),
-                approvalContent: this.form.content,
-                approvalDetail: this.form.detail,
-                approvalProcess: JSON.stringify(this.form.selectedProcess.process_nodes),
-                approvalProcessType: this.form.processRadio,
-                approvalFiles: JSON.stringify(this.form.uploadedFileList),
-                approvalCc: JSON.stringify(this.form.Cc)
-              }
+            this.$http.post('approval/CreateApproval.php', {
+              param: rsaUtil.encryption_oa_test(),
+              approvalContent: this.form.content,
+              approvalDetail: this.form.detail,
+              approvalProcess: JSON.stringify(this.form.selectedProcess.process_nodes),
+              approvalProcessType: this.form.processRadio,
+              approvalFiles: JSON.stringify(this.form.uploadedFileList),
+              approvalCc: JSON.stringify(this.form.Cc)
             }).then((res) => {
               this.$message({
                 type: 'success',

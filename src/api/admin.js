@@ -1,32 +1,17 @@
-import request from '@/utils/request'
+import http from '@/utils/http'
 
 export function GetAdminUsers() {
-  return request({
-    url: '/GetAdminUsers',
-    method: 'get'
-  })
+  return http.get('GetAdminUsers')
 }
 
 export function AddAdminUser(data) {
-  return request({
-    url: '/AddAdminUser',
-    method: 'post',
-    data
-  })
+  return http.post('AddAdminUser', data)
 }
 
 export function EditAdminUser(data) {
-  return request({
-    url: `/EditAdminUser`,
-    method: 'post',
-    data
-  })
+  return http.post('EditAdminUser', data)
 }
 
 export function DelAdminUser(data) {
-  return request({
-    url: `/DelAdminUser`,
-    method: 'post',
-    data
-  })
+  return http.post('DelAdminUser', data)
 }

@@ -45,7 +45,7 @@
 
 <script>
 import ExportExcel from '@/excel/ExportExcel'
-import request from '@/utils/request'
+import http from '@/utils/http'
 import rsaUtil from '@/utils/rsaUtil'
 
 export default {
@@ -168,14 +168,9 @@ export default {
     },
     // 获取表格数据
     httpGetTable() {
-      request({
-        url: this.requestConfig.url,
-        method: 'post',
-        data: {
-          param: rsaUtil.encryption_xxcy(this.requestConfig.data),
-          ...this.requestConfig.notRsaData
-        },
-        baseURL: this.requestConfig.baseUrl || process.env.VUE_APP_BASE_API
+      http.post(this.requestConfig.url, {
+        param: rsaUtil.encryption_xxcy(this.requestConfig.data),
+        ...this.requestConfig.notRsaData
       }).then(res => {
         this.tableData = res.rows
         this.tableTotal = res.total

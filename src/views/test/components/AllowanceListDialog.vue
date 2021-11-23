@@ -46,8 +46,6 @@
 </template>
 
 <script>
-
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 
 export default {
@@ -88,18 +86,13 @@ export default {
   },
   methods: {
     getList() {
-      request({
-        url: '/personnelsystem/PersonSystem/wage/GetWageAllowanceList.php',
-        method: 'post',
-        baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-        data: {
-          param: rsaUtil.encryption_school({
-            page: this.page,
-            rows: this.rows,
-            wageDate: this.wageDate,
-            wageTeacherNo: this.wageTeacherNo
-          })
-        }
+      this.$http.post('personnelsystem/PersonSystem/wage/GetWageAllowanceList.php', {
+        param: rsaUtil.encryption_school({
+          page: this.page,
+          rows: this.rows,
+          wageDate: this.wageDate,
+          wageTeacherNo: this.wageTeacherNo
+        })
       }).then(res => {
         console.log(res)
         this.tableData = res.rows

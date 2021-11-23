@@ -11,7 +11,7 @@
         show-icon
       />
     </div>
-    <el-scrollbar v-if="switchPage === 'main'" v-loading="loading" style="height: 80vh;">
+    <el-scrollbar v-if="switchPage === 'main'" v-loading="loading" style="height: 100%;">
       <el-divider content-position="left" style="font-size: 20px">
         原始任务详情
       </el-divider>
@@ -245,6 +245,8 @@ export default {
           param: rsaUtil.encryption({
             taskId: taskId
           })
+        }, {
+          baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
         })
         .then(res => {
           this.task = res.data.rows
@@ -289,6 +291,8 @@ export default {
               param: rsaUtil.encryption({
                 accessoryId: file.accessoryId
               })
+            }, {
+              baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
             })
             .then(res => {
               this.$message({
@@ -312,6 +316,8 @@ export default {
               param: rsaUtil.encryption({
                 accessoryId: file.accessoryId
               })
+            }, {
+              baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
             })
             .then(res => {
               this.$message({
@@ -332,6 +338,8 @@ export default {
           taskComProgress: this.task.taskChildInfo[0].taskComProgress,
           taskComContent: this.task.taskChildInfo[0].taskComContent,
           taskBaseFileArr: ''
+        }, {
+          baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
         })
         .then(res => {
           this.$message({
@@ -357,6 +365,8 @@ export default {
               param: rsaUtil.encryption({
                 taskId: this.task.taskChildInfo[0].lastTeacherName === '无' ? this.task.taskId : this.task.taskChildInfo[0].taskId
               })
+            }, {
+              baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
             })
             .then(res => {
               this.$message({
@@ -395,6 +405,8 @@ export default {
               : this.task.taskChildInfo[0].taskId,
           taskContent: this.task.taskChildInfo[0].taskChildContent,
           teacherArr: JSON.stringify(this.task.taskChildInfo[0].childTask)
+        }, {
+          baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
         })
         .then(res => {
           this.$message({

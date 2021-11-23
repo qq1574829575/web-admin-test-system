@@ -34,7 +34,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :current-page="page"
       :page-size="rows"
-      :page-sizes="[rows, 100, 200, 500, 1000]"
+      :page-sizes="[10,20,50, 100, 200, 500, 1000]"
       :total="parseInt(tableTotal)"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -109,9 +109,9 @@ export default {
   },
   watch: {
     requestConfig: function() {
-      if (this.requestConfig.data) {
-        this.page = this.requestConfig.data.page || 1
-        this.rows = this.requestConfig.data.rows || 50
+      if (this.requestConfig.parameter) {
+        this.page = this.requestConfig.parameter.page || 1
+        this.rows = this.requestConfig.parameter.rows || 50
       }
       this.loading = true
       this.httpGetTable()
@@ -156,13 +156,13 @@ export default {
     // 分页的每页条数发生变化
     handleSizeChange(val) {
       // 每页显示的条数
-      this.requestConfig.data.rows = val
+      this.requestConfig.parameter.rows = val
       this.httpGetTable()
     },
     // 当前页改变
     handleCurrentChange(val) {
       // 当前页
-      this.requestConfig.data.page = val
+      this.requestConfig.parameter.page = val
       this.httpGetTable()
     },
     // 获取表格数据
@@ -171,6 +171,8 @@ export default {
         .post(this.requestConfig.url, {
           param: rsaUtil.encryption(this.requestConfig.parameter),
           ...this.requestConfig.notRsaData
+        }, {
+          baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
         })
         .then(res => {
           this.tableData = res.data.rows
@@ -196,6 +198,7 @@ export default {
           })
           this.loading = false
         }).catch(() => {
+          this.loading = false
           this.tableData = []
           this.tableTotal = 0
         })

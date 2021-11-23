@@ -394,7 +394,6 @@
 </template>
 <script>
 
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 import AllowanceListDialolg from '@/views/test/components/AllowanceListDialog'
 import UploadWageDialog from '@/views/test/components/UploadWageDialog'
@@ -460,21 +459,16 @@ export default {
   },
   methods: {
     getList() {
-      request({
-        url: '/personnelsystem/PersonSystem/wage/GetTeacherWageList.php',
-        method: 'post',
-        baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-        data: {
-          param: rsaUtil.encryption_school_long({
-            page: this.page,
-            rows: this.rows,
-            wageDate: this.selectedDate,
-            wageDeptName: '',
-            selectType: this.searchType,
-            selectContent: this.searchContent,
-            wageDeptId: this.selectedDept
-          })
-        }
+      this.$http.post('personnelsystem/PersonSystem/wage/GetTeacherWageList.php', {
+        param: rsaUtil.encryption_school_long({
+          page: this.page,
+          rows: this.rows,
+          wageDate: this.selectedDate,
+          wageDeptName: '',
+          selectType: this.searchType,
+          selectContent: this.searchContent,
+          wageDeptId: this.selectedDept
+        })
       }).then(res => {
         this.list = res.rows
         this.pageConfig.total = res.total
@@ -489,15 +483,10 @@ export default {
       })
     },
     getDeptList() {
-      request({
-        url: '/personnelsystem/PersonSystem/wage/GetDeptList.php',
-        method: 'post',
-        baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-        data: {
-          param: rsaUtil.encryption_school({
-            deptName: '99'
-          })
-        }
+      this.$http.post('personnelsystem/PersonSystem/wage/GetDeptList.php', {
+        param: rsaUtil.encryption_school({
+          deptName: '99'
+        })
       }).then(res => {
         this.deptList = res.rows
       })

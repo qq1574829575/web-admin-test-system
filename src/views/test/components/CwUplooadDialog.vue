@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 const XLSX = require('xlsx')
 export default {
@@ -82,14 +81,9 @@ export default {
         })
         return
       }
-      request({
-        url: '/personnelsystem/PersonSystem/wage/CreateGroupCwDetail.php',
-        method: 'post',
-        baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-        data: {
-          param: rsaUtil.encryption_school(),
-          cwGroup: JSON.stringify(this.uploadData)
-        }
+      this.$http.post('personnelsystem/PersonSystem/wage/CreateGroupCwDetail.php', {
+        param: rsaUtil.encryption_school(),
+        cwGroup: JSON.stringify(this.uploadData)
       }).then(res => {
         console.log(res)
         this.$parent.getList()

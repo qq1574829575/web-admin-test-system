@@ -86,9 +86,9 @@ export default {
     getDeptList() {
       this.$http
         .post('/jiangoaoffice/Office/task/GetDeptTeacherList.php', {
-          param: rsaUtil.encryption({
-            teacherName: '99'
-          })
+          param: rsaUtil.encryption()
+        }, {
+          baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
         })
         .then(res => {
           this.deptList = res.data.rows.map(row => {
@@ -133,7 +133,8 @@ export default {
     editRemark(row) {
       this.$prompt('请输入备注', '提示', {
         confirmButtonText: '确定',
-        cancelButtonText: '取消'
+        cancelButtonText: '取消',
+        inputValue: row.childTaskRemark
       })
         .then(({ value }) => {
           row.childTaskRemark = value

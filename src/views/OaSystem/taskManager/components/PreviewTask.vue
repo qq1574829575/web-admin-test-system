@@ -1,7 +1,7 @@
 <template>
   <div style="height: 100%;">
     <el-page-header content="任务详情" @back="goBack" />
-    <el-scrollbar v-loading="loading" style="height: 80vh;">
+    <el-scrollbar v-loading="loading" style="height: 100%;">
       <el-descriptions
         v-if="task"
         style="margin-top: 20px;"
@@ -92,6 +92,8 @@ export default {
           param: rsaUtil.encryption({
             taskId: taskId
           })
+        }, {
+          baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
         })
         .then(res => {
           this.task = res.data.rows

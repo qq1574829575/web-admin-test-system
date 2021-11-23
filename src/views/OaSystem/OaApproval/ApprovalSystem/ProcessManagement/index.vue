@@ -109,7 +109,6 @@
 
 <script>
 import BaseTable from '@/views/OaSystem/components/BaseTable'
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 
 export default {
@@ -141,15 +140,10 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        request({
-          url: '/process/DelProcess.php',
-          method: 'post',
-          baseURL: 'http://192.168.110.183:8003',
-          data: {
-            param: rsaUtil.encryption_oa_test({
-              id: id
-            })
-          }
+        this.$http.post('process/DelProcess.php', {
+          param: rsaUtil.encryption_oa_test({
+            id: id
+          })
         }).then((res) => {
           this.$message({
             type: 'success',

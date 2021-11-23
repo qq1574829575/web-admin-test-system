@@ -112,6 +112,8 @@ export default {
           param: rsaUtil.encryption({
             teacherName: '99'
           })
+        }, {
+          baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
         })
         .then(res => {
           this.deptList = res.data.rows.map(row => {
@@ -177,7 +179,9 @@ export default {
             teacherId: this.selectedMembers[i][1].teacherId,
             teacherNo: this.selectedMembers[i][1].teacherNo,
             teacherName: this.selectedMembers[i][0].deptName + '-' + this.selectedMembers[i][1].teacherName,
-            childTaskRemark: ''
+            taskRemark: '',
+            taskStatus: '待阅',
+            taskComProgress: 0
           }
           this.myMemberList.push(teacher)
         }

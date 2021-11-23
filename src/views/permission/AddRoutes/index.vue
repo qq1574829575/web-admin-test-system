@@ -51,7 +51,6 @@
 
 <script>
 import path from 'path'
-import request from '@/utils/request'
 import AddRoutesDialog from '@/views/permission/AddRoutes/components/AddRoutesDialog'
 import EditChildRoutesDialog from '@/views/permission/AddRoutes/components/EditChildRoutesDialog'
 import AddChildRoutesDialog from '@/views/permission/AddRoutes/components/AddChildRoutesDialog'
@@ -115,12 +114,8 @@ export default {
       })
     },
     getRoutes() {
-      request({
-        url: '/GetRoutes',
-        method: 'post',
-        data: {
-          id: 1
-        }
+      this.$http.post('GetRoutes', {
+        id: 1
       }).then((res) => {
         if (res.code === 200) {
           this.routes = JSON.parse(res.routes)
@@ -129,13 +124,9 @@ export default {
       })
     },
     updateRoutes() {
-      request({
-        url: '/UpdateRoutes',
-        method: 'post',
-        data: {
-          id: 1,
-          routes: JSON.stringify(this.routes)
-        }
+      this.$http.post('UpdateRoutes', {
+        id: 1,
+        routes: JSON.stringify(this.routes)
       }).then((res) => {
         this.getRoutes()
         if (res.code === 200) {

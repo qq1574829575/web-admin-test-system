@@ -1,32 +1,17 @@
-import request from '@/utils/request'
+import http from '@/utils/http'
 
 export function GetAllPermissionRoutes() {
-  return request({
-    url: '/GetAllPermissionRoutes',
-    method: 'get'
-  })
+  return http.get('GetAllPermissionRoutes')
 }
 
 export function AddPermissionRoutes(data) {
-  return request({
-    url: '/AddPermissionRoutes',
-    method: 'post',
-    data
-  })
+  return http.post('AddPermissionRoutes', data)
 }
 
 export function EditPermissionRoutes(data) {
-  return request({
-    url: '/EditPermissionRoutes',
-    method: 'post',
-    data
-  })
+  return http.post('EditPermissionRoutes', data)
 }
 
 export function DelPermissionRoutes(data) {
-  return request({
-    url: '/DelPermissionRoutes',
-    method: 'post',
-    data
-  })
+  return http.post('DelPermissionRoutes', data)
 }

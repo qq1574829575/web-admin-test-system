@@ -57,8 +57,6 @@
 </template>
 
 <script>
-
-import request from '@/utils/request'
 import { deepClone } from '@/utils'
 
 export default {
@@ -119,13 +117,9 @@ export default {
         if (valid) {
           const routes = deepClone(this.routes)
           routes.push(this.form)
-          request({
-            url: '/UpdateRoutes',
-            method: 'post',
-            data: {
-              id: 1,
-              routes: JSON.stringify(routes)
-            }
+          this.$http.post('UpdateRoutes', {
+            id: 1,
+            routes: JSON.stringify(routes)
           }).then((res) => {
             this.onClose()
             if (res.code === 200) {

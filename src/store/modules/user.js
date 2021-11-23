@@ -1,39 +1,35 @@
+// 未使用getter的方式
 import { resetRouter } from '@/router'
 
 const state = {
-  userInfo: {},
-  userinfo: {},
-  hasRoutes: false,
-  adminUserinfo: {}
+  token: null,
+  userInfo: null
 }
 
 const mutations = {
-  SET_HAS_ROUTES: (state, hasRoutes) => {
-    state.hasRoutes = hasRoutes
+  SET_TOKEN: (state, token) => {
+    state.token = token
   },
-  SET_ADMIN_USERINFO: (state, adminUserinfo) => {
-    state.adminUserinfo = adminUserinfo
-  },
-  SET_USERINFO: (state, userinfo) => {
-    state.userinfo = userinfo
-    state.userInfo = userinfo
+  SET_USER_INFO: (state, userInfo) => {
+    state.userInfo = userInfo
   }
 }
 
 const actions = {
-  setUserinfo({ commit }, userinfo) {
-    commit('SET_USERINFO', userinfo)
+  setToken({ commit }, token) {
+    commit('SET_TOKEN', token)
   },
-  setHasRoutes({ commit }, hasRoutes) {
-    commit('SET_HAS_ROUTES', hasRoutes)
-  },
-  setAdminUserinfo({ commit }, adminUserinfo) {
-    commit('SET_ADMIN_USERINFO', adminUserinfo)
+  setUserInfo({ commit }, userInfo) {
+    commit('SET_USER_INFO', userInfo)
   },
   logout({ commit, state, dispatch }) {
+    // 清除本地用户信息
     localStorage.clear()
-    commit('SET_HAS_ROUTES', false)
+    // 重置路由
     resetRouter()
+    // 清除状态管理器token
+    commit('SET_TOKEN', null)
+    // 清除所有视图
     dispatch('tagsView/delAllViews', null, { root: true })
   }
 }

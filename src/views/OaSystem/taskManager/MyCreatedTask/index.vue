@@ -74,7 +74,7 @@ import rsaUtil from '@/utils/rsaUtil'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Index',
+  name: 'MyCreatedTask',
   components: { BaseTable, PreviewTask },
   data() {
     return {

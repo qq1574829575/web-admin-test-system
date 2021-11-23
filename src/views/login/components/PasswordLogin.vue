@@ -1,7 +1,7 @@
 <template>
   <el-form ref="loginForm" v-loading="loading" :rules="loginRules" :model="loginForm" label-position="left">
     <el-form-item prop="username">
-      <el-input v-model="loginForm.username" placeholder="手机号码/教工号" />
+      <el-input v-model="loginForm.username" placeholder="账号" />
     </el-form-item>
     <el-form-item prop="password">
       <el-input
@@ -22,52 +22,61 @@
 </template>
 
 <script>
-import request from '@/utils/request'
-import rsaUtil from '@/utils/rsaUtil'
-
+import router from '@/router'
 export default {
   name: 'PasswordLogin',
   data() {
     return {
       loginForm: {
-        username: '18279977834',
-        password: '1574829575'
+        username: '',
+        password: ''
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', message: '请输入手机号码/教工号' }],
-        password: [{ required: true, trigger: 'blur', message: '请输入密码' }]
+        username: [{ required: true, trigger: 'change', message: '请输入账号' }],
+        password: [{ required: true, trigger: 'change', message: '请输入密码' }]
       },
-      loading: false
+      loading: false,
+      redirect: undefined,
+      otherQuery: {}
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(route) {
+        const query = route.query
+        if (query) {
+          this.redirect = query.redirect
+          this.otherQuery = this.getOtherQuery(query)
+        }
+      },
+      immediate: true
     }
   },
   methods: {
+    getOtherQuery(query) {
+      return Object.keys(query).reduce((acc, cur) => {
+        if (cur !== 'redirect') {
+          acc[cur] = query[cur]
+        }
+        return acc
+      }, {})
+    },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          request({
-            url: '/login/password_login.php',
-            method: 'post',
-            data: {
-              param: rsaUtil.encryption_xxcy({ Logininfo: this.loginForm.username, Password: this.loginForm.password })
-            },
-            baseURL: 'https://xyxxcygcxx.guolianrobot.com'
-          }).then(res => {
+          this.$http.post('user/login', this.loginForm).then(res => {
             this.loading = false
-            if (res.code === 1) {
-              const userinfo = res.rows[0]
-              // 将登录后的用户信息保存到本地
-              window.localStorage.setItem('userinfo', JSON.stringify(userinfo))
-              // 通知父组件登录成功了
-              this.$emit('onLoginSuccess')
-              this.$message({
-                type: 'success',
-                message: '登录成功'
-              })
-            }
-          }).catch(res => {
+            this.$notify.success({
+              title: '提示',
+              type: 'success',
+              message: res.data.message
+            })
+            window.localStorage.setItem('token', res.data.token)
+            window.localStorage.setItem('userInfo', JSON.stringify(res.data.userInfo))
+            router.push({ path: this.redirect || '/', query: this.otherQuery })
+          }).catch(() => {
             this.loading = false
-            console.log(res)
           })
         } else {
           return false

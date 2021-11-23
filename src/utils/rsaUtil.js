@@ -10,10 +10,10 @@ export default {
     object = {
       Codetime: getCurrentTime(),
       Onlyid: uuidUtil.uuid(22, 10),
-      Rootcardid: store.getters.userinfo.Rootcardid,
-      Rootname: store.getters.userinfo.Rootname,
-      Token: store.getters.userinfo.Token,
-      studentID: store.getters.userinfo.studentID,
+      Rootcardid: store.state.userInfo.Rootcardid,
+      Rootname: store.state.userInfo.Rootname,
+      Token: store.state.token,
+      studentID: store.state.userInfo.studentID,
       ...object
     }
     console.log(object)

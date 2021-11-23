@@ -56,7 +56,6 @@ import path from 'path'
 import { deepClone } from '@/utils'
 import { GetAllPermissionRoutes, AddPermissionRoutes, EditPermissionRoutes, DelPermissionRoutes } from '@/api/permission'
 import store from '@/store'
-import request from '@/utils/request'
 
 const defaultPermissionRoutes = {
   desc: '',
@@ -90,12 +89,8 @@ export default {
   },
   methods: {
     getRoutes() {
-      request({
-        url: '/GetRoutes',
-        method: 'post',
-        data: {
-          id: 1
-        }
+      this.$http.post('GetRoutes', {
+        id: 1
       }).then((res) => {
         if (res.code === 200) {
           const data = JSON.parse(res.routes)

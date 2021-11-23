@@ -65,6 +65,7 @@ import UploadFile from '../components/UploadFile'
 import ShowClosableFileList from '../components/ShowClosableFileList'
 
 export default {
+  name: 'CreateTask',
   components: { ShowClosableFileList, UploadFile, TinymceEditor, AddTaskMembers },
   data() {
     return {
@@ -130,6 +131,8 @@ export default {
                   taskFileArr: JSON.stringify(this.taskForm.taskFiles),
                   taskLevel: this.taskForm.taskUrgency,
                   taskChild: JSON.stringify(this.$refs.addTaskMembers.getMemberList())
+                }, {
+                  baseURL: 'http://www.unifiedplatform.guolianrobot.com/'
                 })
                 .then(res => {
                   this.loading = false
@@ -155,9 +158,7 @@ export default {
     },
     generateRsaData() {
       return {
-        param: rsaUtil.encryption({
-          Rootcardid: this.userInfo.Rootcardid
-        })
+        param: rsaUtil.encryption()
       }
     },
     onUploadSuccess(res, file) {

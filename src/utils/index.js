@@ -355,3 +355,25 @@ export function removeClass(ele, cls) {
     ele.className = ele.className.replace(reg, ' ')
   }
 }
+
+export function getOtherQuery(query) {
+  return Object.keys(query).reduce((acc, cur) => {
+    if (cur !== 'redirect') {
+      acc[cur] = query[cur]
+    }
+    return acc
+  }, {})
+}
+
+export function getQueryVariable(variable) {
+  const after = window.location.hash.split('?', 2)[1]
+  if (after) {
+    const reg = new RegExp('(^|&)' + variable + '=([^&]*)(&|$)')
+    const r = after.match(reg)
+    if (r != null) {
+      return decodeURIComponent(r[2])
+    } else {
+      return false
+    }
+  }
+}

@@ -399,8 +399,6 @@
 </template>
 
 <script>
-
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 import AllowanceListDialolg from '@/views/test/components/AllowanceListDialog'
 export default {
@@ -422,16 +420,11 @@ export default {
   },
   methods: {
     getTeacherWage() {
-      request({
-        url: '/personnelsystem/PersonSystem/wage/GetWebWageList.php',
-        method: 'post',
-        baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-        data: {
-          param: rsaUtil.encryption_school({
-            wageDate: this.selectedDate,
-            wageTeacherNo: 'J01811'
-          })
-        }
+      this.$http.post('personnelsystem/PersonSystem/wage/GetWebWageList.php', {
+        param: rsaUtil.encryption_school({
+          wageDate: this.selectedDate,
+          wageTeacherNo: 'J01811'
+        })
       }).then(res => {
         this.teacherWageInfo = res.rows
         if (res.message === '操作成功') {

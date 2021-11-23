@@ -26,8 +26,9 @@
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <!--<img :src="'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png?imageView2/1/w/80/h/80'" class="user-avatar" alt="">-->
+          <div class="user-name">{{ user.userInfo.Rootname }}</div>
+          <i class="el-icon-arrow-down" />
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
@@ -66,7 +67,8 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'device'
+      'device',
+      'user'
     ])
   },
   methods: {
@@ -152,11 +154,18 @@ export default {
           border-radius: 10px;
         }
 
-        .el-icon-caret-bottom {
+        .user-name {
+          cursor: pointer;
+          //top: 15px;
+          margin-top: -3px;
+          font-size: 15px;
+        }
+
+        .el-icon-arrow-down {
           cursor: pointer;
           position: absolute;
           right: -20px;
-          top: 25px;
+          top: 19px;
           font-size: 12px;
         }
       }

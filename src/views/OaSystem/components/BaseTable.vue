@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import request from '@/utils/request'
 import rsaUtil from '@/utils/rsaUtil'
 
 export default {
@@ -138,18 +137,13 @@ export default {
     },
     httpGetTable() {
       this.loading = true
-      request({
-        url: this.requestConfig.url,
-        baseURL: 'http://www.unifiedplatform.guolianrobot.com',
-        method: 'post',
-        data: {
-          param: rsaUtil.encryption_school_long({
-            ...this.requestConfig.data,
-            page: this.currentPage,
-            rows: this.currentRows
-          }),
-          ...this.requestConfig.notRsaData
-        }
+      this.$http.post(this.requestConfig.url, {
+        param: rsaUtil.encryption_school_long({
+          ...this.requestConfig.data,
+          page: this.currentPage,
+          rows: this.currentRows
+        }),
+        ...this.requestConfig.notRsaData
       }).then(res => {
         this.tableData = res.rows
         this.tableTotal = res.total
